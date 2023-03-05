@@ -220,7 +220,7 @@ class homeform : public QObject {
                     backgroundGradient.setColorAt((maxWatt - (ftpSetting * 1.5)) / maxWatt, QColor("orangered"));
                     backgroundGradient.setColorAt(0.0, QColor("red"));*/
 
-                    // backgroundGradient.setCoordinateMode(QGradient::ObjectBoundingMode);
+                    // 1backgroundGradient.setCoordinateMode(QGradient::ObjectBoundingMode);
                     // chart->setBackgroundBrush(backgroundGradient);
                     // Customize plot area background
                     QLinearGradient plotAreaGradient;
