@@ -417,6 +417,10 @@ homeform::homeform(QQmlApplicationEngine *engine, bluetooth *bl) {
             &homeform::pelotonOffset_Plus);
     connect(bluetoothManager->getInnerTemplateManager(), &TemplateInfoSenderBuilder::pelotonOffset_Minus, this,
             &homeform::pelotonOffset_Minus);
+    connect(bluetoothManager->getInnerTemplateManager(), &TemplateInfoSenderBuilder::gears_Plus, this,
+            &homeform::gearUp);
+    connect(bluetoothManager->getInnerTemplateManager(), &TemplateInfoSenderBuilder::gears_Minus, this,
+            &homeform::gearDown);
     connect(bluetoothManager->getInnerTemplateManager(), &TemplateInfoSenderBuilder::pelotonOffset, this,
             &homeform::pelotonOffset);
     connect(bluetoothManager->getInnerTemplateManager(), &TemplateInfoSenderBuilder::pelotonAskStart, this,
@@ -3205,6 +3209,16 @@ void homeform::update() {
                     nextRows->setValue(QStringLiteral("HR") + QString::number(next.HRmin) + QStringLiteral("-") +
                                        QString::number(next.HRmax) + QStringLiteral(" ") +
                                        next.duration.toString(QStringLiteral("mm:ss")));
+                else if (next.speed != -1 && next.inclination != -1)
+                    nextRows->setValue(QStringLiteral("S") + QString::number(next.speed) + QStringLiteral("I") +
+                                       QString::number(next.inclination) + QStringLiteral(" ") +
+                                       next.duration.toString(QStringLiteral("mm:ss")));
+                else if (next.speed != -1)
+                    nextRows->setValue(QStringLiteral("S") + QString::number(next.speed) + QStringLiteral(" ") +
+                                       next.duration.toString(QStringLiteral("mm:ss")));
+                else if (next.inclination != -1)
+                    nextRows->setValue(QStringLiteral("I") + QString::number(next.inclination) + QStringLiteral(" ") +
+                                       next.duration.toString(QStringLiteral("mm:ss")));                                       
                 else if (next.power != -1) {
                     double ftpPerc = (next.power / ftpSetting) * 100.0;
                     uint8_t ftpZone = 1;
